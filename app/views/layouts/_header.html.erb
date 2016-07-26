@@ -1,0 +1,10 @@
+<div class='container'>
+	<% if signed_in? %>
+    <li><a data-method='delete' href = "<%= destroy_user_session_path %>"> Logout</a></li>
+    <li><a href="<%= messages_path %>">Chat</a></li>
+    <li><p>Welcome <%=current_user.email %></p></li>
+    <% else %>
+    <li><a href="<%= new_user_session_path %>">Login</a></li>
+		<li><a href="<%= new_user_registration_path %>">Signup</a></li>
+  <% end %>
+</div>

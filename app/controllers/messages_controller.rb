@@ -1,4 +1,5 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!
   include ActionController::Live
 
   def index
@@ -7,19 +8,25 @@ class MessagesController < ApplicationController
 
   def create
     response.headers["Content-Type"] = "text/javascript"
-    attributes = params.require(:message).permit(:content, :name)
-    @message = Message.create(attributes)
-    $redis.publish('messages.create', @message.to_json)
-    # redirect_to request.referer || root_path  end
+    @message = Message.create(message_params)
+    $redis.publish('channel_1', @message.to_json)
+    # $redis.publish('channel_1', @message.to_json)
   end
   
   def events
     response.headers["Content-Type"] = "text/event-stream"
     redis = Redis.new
-    redis.psubscribe('messages.*') do |on|
-      on.pmessage do |pattern, event, data|
+    # redis.subscribe('channel_1', 'heartbeat') do |on|
+    #   on.message do |event, data|
+    #     p 'Subscribed to channel_1 and heartbeat'
+    #     p "Message: #{data}"
+    #     response.stream.write("event: #{event}\n")
+    #     response.stream.write("event: #{data}\n\n")
+    redis.subscribe('channel_1') do |on|
+      on.message do |event, data|
         response.stream.write("event: #{event}\n")
         response.stream.write("data: #{data}\n\n")
+        # binding.pry
       end
     end
   rescue IOError
@@ -27,5 +34,11 @@ class MessagesController < ApplicationController
   ensure
     redis.quit
     response.stream.close
+  end
+
+  private
+
+  def message_params
+    params.require(:message).permit(:content, :name)
   end
 end

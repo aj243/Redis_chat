@@ -1,12 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'arel' 
-gem 'activerecord-deprecated_finders' 
+# gem 'arel' 
+# gem 'activerecord-deprecated_finders' 
 
+gem 'devise'
 gem 'puma'
 gem 'redis'
-
 gem 'pry'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.2'
 # Use mysql as the database for Active Record
