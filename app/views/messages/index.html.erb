@@ -5,7 +5,7 @@
 </ul>
 
 <%= form_for Message.new, remote: true do |f| %>
-  <%= f.text_field :name, placeholder: "Name" %>
+	<%= f.label :name, "#{current_user.name}" %>
   <%= f.text_field :content %>
   <%= f.submit "Send" %>
 <% end %>

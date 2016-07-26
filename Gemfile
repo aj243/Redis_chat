@@ -1,8 +1,5 @@
 source 'https://rubygems.org'
 
-# gem 'arel' 
-# gem 'activerecord-deprecated_finders' 
-
 gem 'devise'
 gem 'puma'
 gem 'redis'
