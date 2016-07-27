@@ -3,6 +3,7 @@ class CreateMessages < ActiveRecord::Migration
     create_table :messages do |t|
       t.string :name
       t.text :content
+      t.string :channel
 
       t.timestamps null: false
     end

@@ -3,22 +3,23 @@ class MessagesController < ApplicationController
   include ActionController::Live
 
   def index
-    @messages = Message.all
+    user = User.find_by(current_user.id)
+    @messages = Message.where(channel: user.subscribed_channel[:channel])
   end
 
   def create
     response.headers["Content-Type"] = "text/javascript"
     @message = Message.create(message_params)
     @message.name = current_user.name
+    @message.channel = "channel_#{current_user.id}"
     @message.save
-    $redis.publish('channel_1', @message.to_json)
+    $redis.publish("channel_#{current_user.id}", @message.to_json)
   end
   
   def events
     response.headers["Content-Type"] = "text/event-stream"
     redis = Redis.new
-    # redis.subscribe('channel_1', 'heartbeat') do |on|
-    redis.subscribe('channel_1') do |on|
+    redis.subscribe("channel_#{current_user.id}", "heartbeat") do |on|
       on.message do |event, data|
         response.stream.write("event: #{event}\n")
         response.stream.write("data: #{data}\n\n")
@@ -35,6 +36,6 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:content, :name)
+    params.require(:message).permit(:content, :name, :channel)
   end
 end
