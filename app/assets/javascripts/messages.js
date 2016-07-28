@@ -1,12 +1,18 @@
 var ready;
 ready = function(){
+	id = $('#user_id').attr("value");
+	array = JSON.parse(id);
+	console.log(id);
 	source = new EventSource('/messages/events');
-  source.addEventListener ('channel_1', function(response) {
-		message = JSON.parse(response.data);
-  	$('#chat').append($('<li>').text(message.name + ": " + message.content))
-  	console.log('Event listening');
-  	console.log(response.data);
-  })
+
+	for (var i=0; i<array.length; i++){
+        source.addEventListener(array[i], doStuff);
+  };  
+};
+
+var doStuff = function(response) {
+	message = JSON.parse(response.data);
+	$('#chat').append($('<li>').text(message.name + ": " + message.content))
 };
 
 $(document).ready(ready);

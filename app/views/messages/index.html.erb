@@ -3,7 +3,7 @@
 <ul id="chat">
   <%= render @messages %>
 </ul>
-
+<div id="user_id" value="<%=current_user.subscribed_channel[:channel]%>">test</div>
 <%= form_for Message.new, remote: true do |f| %>
 	<%= f.label :name, "#{current_user.name}" %>
   <%= f.text_field :content %>

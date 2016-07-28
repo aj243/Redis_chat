@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   include ActionController::Live
 
   def index
-    user = User.find_by(current_user.id)
+    user = User.find_by_id(current_user.id)
     @messages = Message.where(channel: user.subscribed_channel[:channel])
   end
 
@@ -19,10 +19,12 @@ class MessagesController < ApplicationController
   def events
     response.headers["Content-Type"] = "text/event-stream"
     redis = Redis.new
-    redis.subscribe("channel_#{current_user.id}", "heartbeat") do |on|
-      on.message do |event, data|
-        response.stream.write("event: #{event}\n")
-        response.stream.write("data: #{data}\n\n")
+    current_user.subscribed_channel[:channel].each do |channel|
+      redis.subscribe("#{channel}", "channel_#{current_user.id}") do |on|
+        on.message do |event, data|
+          response.stream.write("event: #{event}\n")
+          response.stream.write("data: #{data}\n\n")
+        end
       end
     end
   rescue 

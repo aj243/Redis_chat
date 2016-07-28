@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	before_action :authenticate_user!, except: [:home]
 
 	def subscribe_to_users
-		user = User.find_by(current_user.id)
+		user = User.find_by_id(current_user.id)
 		if user.subscribed_channel.nil?
 			user.subscribed_channel = Hash.new
 			user.subscribed_channel[:channel] = [ "channel_#{params[:user_id]}" ]
