@@ -1,4 +1,5 @@
 <div class='container'>
+	<a href="<%= root_path %>">Home</a>
 	<% if signed_in? %>
     <li><a data-method='delete' href = "<%= destroy_user_session_path %>"> Logout</a></li>
     <li><a href="<%= messages_path %>">Chat</a></li>

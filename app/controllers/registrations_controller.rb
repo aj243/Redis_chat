@@ -1,5 +1,13 @@
 class RegistrationsController < Devise::RegistrationsController
 
+	def create
+		super
+		if resource.save
+			resource.subscribed_channel = { channel: [ "channel_#{current_user.id}" ] }
+			resource.save
+		end
+	end
+
 	private
 
   def sign_up_params

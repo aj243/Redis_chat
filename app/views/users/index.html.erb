@@ -1,6 +1,6 @@
 <h2>Select Users to follow</h2>
 <div>
-	<% User.all.each do |user| %>
+	<% @users.each do |user| %>
    	<%= link_to "#{user.name} id:#{user.id}", {:controller => "users", 
                        :action => "subscribe_to_users", 
                        :user_id => user.id},

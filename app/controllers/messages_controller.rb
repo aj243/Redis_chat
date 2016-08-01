@@ -9,8 +9,7 @@ class MessagesController < ApplicationController
 
   def create
     response.headers["Content-Type"] = "text/javascript"
-    @message = Message.create(message_params)
-    @message.name = current_user.name
+    @message = current_user.messages.build(message_params)
     @message.channel = "channel_#{current_user.id}"
     @message.save
     $redis.publish("channel_#{current_user.id}", @message.to_json)
@@ -18,13 +17,13 @@ class MessagesController < ApplicationController
   
   def events
     response.headers["Content-Type"] = "text/event-stream"
+    # binding.pry
+    channels = current_user.subscribed_channel[:channel]
     redis = Redis.new
-    current_user.subscribed_channel[:channel].each do |channel|
-      redis.subscribe("#{channel}", "channel_#{current_user.id}") do |on|
-        on.message do |event, data|
-          response.stream.write("event: #{event}\n")
-          response.stream.write("data: #{data}\n\n")
-        end
+    redis.subscribe(channels) do |on|
+      on.message do |event, data|
+        response.stream.write("event: #{event}\n")
+        response.stream.write("data: #{data}\n\n")
       end
     end
   rescue 
@@ -34,6 +33,30 @@ class MessagesController < ApplicationController
     redis.quit
     response.stream.close
   end
+
+  #  def events
+  #   response.headers["Content-Type"] = "text/event-stream"
+  #   # binding.pry
+  #   channels = current_user.subscribed_channel[:channel]
+  #   c = channels.clone
+  #   c.each do |channel|
+  #     redis = Redis.new
+  #     puts channel
+  #     redis.subscribe(channels) do |on|
+  #       on.message do |event, data|
+  #         response.stream.write("event: #{event}\n")
+  #         response.stream.write("data: #{data}\n\n")
+  #       end
+  #     end
+  #   end
+  # # rescue 
+  # #   IOError
+  # #   logger.info "Stream closed"
+  # ensure
+  #   # redis.quit
+
+  # #   response.stream.close
+  # end
 
   private
 
