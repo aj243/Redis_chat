@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 		user = User.find_by_id(current_user.id)
 		user.subscribed_channel[:channel] << "channel_#{params[:user_id]}"
 		user.save
+		flash[:success] = 'User Subscribed'
 		redirect_to request.referer || root_path
 	end
 
