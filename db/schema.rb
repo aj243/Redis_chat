@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20160728123203) do
   create_table "messages", force: :cascade do |t|
     t.text     "content",    limit: 65535
     t.string   "channel",    limit: 255
+    t.string   "user_name",  limit: 255
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "user_id",    limit: 4

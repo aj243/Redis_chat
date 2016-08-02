@@ -1,20 +1,49 @@
-<div class="col-md-6 col-md-offset-3">
-	<div class="panel panel-default devise-bs">
-    <div class="panel-heading">
-			<h1>Messages</h1>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+  <div class="col-md-8 col-md-offset-2">
+      <div class="panel">
+      	<!--Heading-->
+  		<div class="panel-heading">
+  			<div class="panel-control">
+  				<div class="btn-group">
+  					
+  				</div>
+  			</div>
+  			<h3 class="panel-title">Chat</h3>
+  		</div>
+  
+  		<!--Widget body-->
+  		<div id="demo-chat-body" class="collapse in">
+  			<div class="nano has-scrollbar" style="height:380px">
+  				<div class="nano-content pad-all" tabindex="0" style="right: -17px;">
+  					<ul class="list-unstyled media-block" id="chat">
+  						
+              <%= render @messages %>
 
-			<ul id="chat">
-			  <%= render @messages %>
-			</ul>
-			
-		</div>
-	</div>
-	<%= form_for Message.new, remote: true do |f| %>
-				<%= f.label :name, "#{current_user.name}" %>
-			  <%= f.text_field :content %>
-			  <%= f.submit "Send" %>
-	<% end %>			
+  					</ul>
+  				</div>
+  			<div class="nano-pane"><div class="nano-slider" style="height: 141px; transform: translate(0px, 0px);"></div></div></div>
+  
+  			<!--Widget footer-->
+  			<div class="panel-footer">
+  				<div class="row">
+
+  				<form class="new_message" id="new_message" action="/messages" accept-charset="UTF-8" data-remote="true" method="post">
+  					<div class="col-xs-9">
+  						<input type="text" placeholder="Enter your text" class="form-control chat-input" name="message[content]" id="message_content">
+  					</div>
+  					<div class="col-xs-3">
+  						<button class="btn btn-primary btn-block" type="submit" value="Send">Send</button>
+  					</div>
+  				</form>
+
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  </div>
 </div>
+
 <div id="user_id" value="<%=current_user.subscribed_channel[:channel]%>" class='user_value'>test</div>
 
 

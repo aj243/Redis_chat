@@ -10,6 +10,7 @@ class MessagesController < ApplicationController
   def create
     response.headers["Content-Type"] = "text/javascript"
     @message = current_user.messages.build(message_params)
+    @message.user_name = current_user.name
     @message.channel = "channel_#{current_user.id}"
     @message.save
     $redis.publish("channel_#{current_user.id}", @message.to_json)
@@ -17,7 +18,6 @@ class MessagesController < ApplicationController
   
   def events
     response.headers["Content-Type"] = "text/event-stream"
-    # binding.pry
     channels = current_user.subscribed_channel[:channel]
     redis = Redis.new
     redis.subscribe(channels) do |on|
