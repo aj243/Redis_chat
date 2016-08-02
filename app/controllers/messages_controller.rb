@@ -34,30 +34,6 @@ class MessagesController < ApplicationController
     response.stream.close
   end
 
-  #  def events
-  #   response.headers["Content-Type"] = "text/event-stream"
-  #   # binding.pry
-  #   channels = current_user.subscribed_channel[:channel]
-  #   c = channels.clone
-  #   c.each do |channel|
-  #     redis = Redis.new
-  #     puts channel
-  #     redis.subscribe(channels) do |on|
-  #       on.message do |event, data|
-  #         response.stream.write("event: #{event}\n")
-  #         response.stream.write("data: #{data}\n\n")
-  #       end
-  #     end
-  #   end
-  # # rescue 
-  # #   IOError
-  # #   logger.info "Stream closed"
-  # ensure
-  #   # redis.quit
-
-  # #   response.stream.close
-  # end
-
   private
 
   def message_params

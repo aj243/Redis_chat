@@ -4,6 +4,8 @@ gem 'devise'
 gem 'puma'
 gem 'redis'
 gem 'pry'
+gem 'bootstrap-sass'
+gem 'devise-bootstrap-views'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.2'

@@ -1,11 +1,22 @@
-<h1>Chat</h1>
+<div class="col-md-6 col-md-offset-3">
+	<div class="panel panel-default devise-bs">
+    <div class="panel-heading">
+			<h1>Messages</h1>
 
-<ul id="chat">
-  <%= render @messages %>
-</ul>
-<div id="user_id" value="<%=current_user.subscribed_channel[:channel]%>" name="<%=current_user.name%>" class='hidden_values'>test</div>
-<%= form_for Message.new, remote: true do |f| %>
-	<%= f.label :name, "#{current_user.name}" %>
-  <%= f.text_field :content %>
-  <%= f.submit "Send" %>
-<% end %>
+			<ul id="chat">
+			  <%= render @messages %>
+			</ul>
+			
+		</div>
+	</div>
+	<%= form_for Message.new, remote: true do |f| %>
+				<%= f.label :name, "#{current_user.name}" %>
+			  <%= f.text_field :content %>
+			  <%= f.submit "Send" %>
+	<% end %>			
+</div>
+<div id="user_id" value="<%=current_user.subscribed_channel[:channel]%>" class='user_value'>test</div>
+
+
+
+

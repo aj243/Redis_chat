@@ -1,11 +1,18 @@
-<div class='container'>
-	<a href="<%= root_path %>">Home</a>
-	<% if signed_in? %>
-    <li><a data-method='delete' href = "<%= destroy_user_session_path %>"> Logout</a></li>
-    <li><a href="<%= messages_path %>">Chat</a></li>
-    <li><p>Welcome <%=current_user.email %></p></li>
-  <% else %>
-    <li><a href="<%= new_user_session_path %>">Login</a></li>
-		<li><a href="<%= new_user_registration_path %>">Signup</a></li>
-  <% end %>
-</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+	    <a class="navbar-brand" href="<%= root_path %>">Home</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+  			<% if signed_in? %>    
+	        <li><a href="<%= messages_path %>">Chat</a></li>
+          <li class="active"><a data-method='delete' href = "<%= destroy_user_session_path %>">Logout <span class="sr-only"> <%=current_user.email %> </span></a></li>
+	      <% else %>
+	      	<li><a href="<%= new_user_session_path %>">Login</a></li>
+					<li><a href="<%= new_user_registration_path %>">Signup</a></li>
+			  <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
