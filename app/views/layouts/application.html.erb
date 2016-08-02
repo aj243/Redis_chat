@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Chat</title>
-		<%= stylesheet_link_tag    'application', media: 'all' %>
-		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-		<%= csrf_meta_tags %>
-	</head>					
-	<body>
-		<%= render 'layouts/header' %>
-		<% flash.each do |key, value| %>
-		  <div class="alert alert-<%= key %> alert-dismissible">
-		    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		    <%= value %>
-		   </div>
-		<% end %>
-		<%= yield %>
-	</body>
+  <head>
+    <title>Chat</title>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>         
+  <body>
+    <%= render 'layouts/header' %>
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %> alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= value %>
+       </div>
+    <% end %>
+    <%= yield %>
+  </body>
 </html>

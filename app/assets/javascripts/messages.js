@@ -14,7 +14,6 @@ ready = function(){
 var doStuff = function(response) {
 	message = JSON.parse(response.data);
 	$('#chat').append($('<li>').text(message.user_name + ": " + message.content))
-	// $('#chat').append("<%= escape_javascript render(:partial => 'messages/messages') %>");
 
 };
 

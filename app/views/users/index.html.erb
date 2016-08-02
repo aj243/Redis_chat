@@ -1,15 +1,15 @@
 <div class="col-md-6 col-md-offset-3">
-	<div class="panel panel-default devise-bs">
+  <div class="panel panel-default devise-bs">
     <div class="panel-heading">
-			<h2>Select Users to follow</h2>
-			<div>
-				<% @users.each do |user| %>
-			   	<%= link_to "#{user.name}", {:controller => "users", 
-			                       :action => "subscribe_to_users", 
-			                       :user_id => user.id},
-			                       :method => "post" %>
-				<% end %>
-			</div>
-		</div>
-	</div>
+      <h2>Select Users to follow</h2>
+      <div>
+        <% @users.each do |user| %>
+          <%= link_to "#{user.name}", {:controller => "users", 
+                             :action => "subscribe_to_users", 
+                             :user_id => user.id},
+                             :method => "post" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
