@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   end
 
   resources :messages do
-    collection { get :events }
+    collection do
+      get :events
+      post :display_message
+    end
   end
 
 end

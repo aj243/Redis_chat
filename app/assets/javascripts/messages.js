@@ -12,7 +12,11 @@ ready = function(){
 }
 var doStuff = function(response) {
   message = JSON.parse(response.data);
-  $('#chat').append($('<li>').text(message.user_name + ": " + message.content))
+  $.ajax({
+  url: "/messages/display_message",
+  method: "POST",
+  data: { "message" : message }
+   });
 };
 
 $(document).ready(ready);

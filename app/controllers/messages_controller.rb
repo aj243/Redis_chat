@@ -34,6 +34,12 @@ class MessagesController < ApplicationController
     response.stream.close
   end
 
+  def display_message
+    if params[:message]
+      @messages = Message.find_by_id(params[:message][:id])
+    end
+  end
+
   private
 
   def message_params
