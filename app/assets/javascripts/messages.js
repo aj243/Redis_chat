@@ -1,6 +1,6 @@
 var ready;
 ready = function(){
-  channels = $('#user_id').attr('value');
+  channels = $('#user_id').attr('data-user-channels');
   if (channels) {
     array = JSON.parse(channels);
     source = new EventSource('/messages/events');
@@ -9,10 +9,18 @@ ready = function(){
       source.addEventListener(array[i], doStuff);     
     }
   };
+
 }
 var doStuff = function(response) {
   message = JSON.parse(response.data);
-  var formattedSpeech = '<li class="mar-btm"><div class="media-body pad-hor"><div class="speech">'+
+  userId = $('#user_id').attr('data-user-id');
+  var messageAlignment;
+  if (userId == message.user_id) {
+      messageAlignment = 'media-body pad-hor';
+  } else {
+      messageAlignment = 'media-body pad-hor speech-right';
+  }
+  var formattedSpeech = '<li class="mar-btm"><div class="'+ messageAlignment + '"><div class="speech">'+
                         '<p class="media-heading">' + message.user_name + '</p><p>'+ message.content +
                         '<p class="speech-time"><i class="fa fa-clock-o fa-fw"></i>' + message.created_at + 
                         '</p></div></div></li>'
