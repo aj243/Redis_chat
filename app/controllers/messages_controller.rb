@@ -2,11 +2,13 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
   include ActionController::Live
 
+  # To display all messages 
   def index
     user = User.find_by_id(current_user.id)
     @messages = Message.where(channel: user.subscribed_channel[:channel])
   end
 
+  # Creating a new message 
   def create
     response.headers["Content-Type"] = "text/javascript"
     @message = current_user.messages.build(message_params)
@@ -16,6 +18,7 @@ class MessagesController < ApplicationController
     $redis.publish("channel_#{current_user.id}", @message.to_json)
   end
   
+  # To subscribe to Redis channels and write them in event streams
   def events
     response.headers["Content-Type"] = "text/event-stream"
     channels = current_user.subscribed_channel[:channel]
