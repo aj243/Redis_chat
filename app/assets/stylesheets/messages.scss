@@ -56,6 +56,7 @@ body{
 }
 .pad-all {
     padding: 15px;
+    right: -17px;
 }
 .mar-btm {
     margin-bottom: 15px;
@@ -209,4 +210,13 @@ body{
 
 .user_value {
     display: none;
+}
+
+.has-scrollbar {
+    height:380px;
+}
+
+.nano-slider {
+    height: 141px; 
+    transform: translate(0px, 0px);
 }

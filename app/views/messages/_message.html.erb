@@ -1,10 +1,14 @@
 <li class="mar-btm">
-  <div class="media-body pad-hor">
+  <% if current_user.id == message.user_id %>
+    <div class="media-body pad-hor">
+  <% else %>
+    <div class="media-body pad-hor speech-right">
+  <% end %>
     <div class="speech">
       <p class="media-heading"><%= message.user_name %></p>
       <p><%= message.content %></p>
       <p class="speech-time">
-      <i class="fa fa-clock-o fa-fw"></i><%= message.created_at %>
+      <i class="fa fa-clock-o fa-fw"></i><%= message.created_at.strftime("%d-%m-%y %I:%M:%S %p") %>
       </p>
     </div>
   </div>

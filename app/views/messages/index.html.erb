@@ -14,15 +14,15 @@
   
     <!--Widget body-->
     <div id="demo-chat-body" class="collapse in">
-      <div class="nano has-scrollbar" style="height:380px">
-        <div class="nano-content pad-all" tabindex="0" style="right: -17px;">
+      <div class="nano has-scrollbar">
+        <div class="nano-content pad-all" tabindex="0">
           <ul class="list-unstyled media-block" id="chat">
             
             <%= render @messages %>
 
           </ul>
         </div>
-      <div class="nano-pane"><div class="nano-slider" style="height: 141px; transform: translate(0px, 0px);"></div></div></div>
+      <div class="nano-pane"><div class="nano-slider"></div></div></div>
   
         <!--Widget footer-->
         <div class="panel-footer">
@@ -44,7 +44,7 @@
   </div>
 </div>
 
-<div id="user_id" value="<%=current_user.subscribed_channel[:channel]%>" class='user_value'>test</div>
+<div id="user_id" value="<%=current_user.subscribed_channel[:channel]%>" class='user_value'></div>
 
 
 

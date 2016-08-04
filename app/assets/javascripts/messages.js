@@ -12,11 +12,11 @@ ready = function(){
 }
 var doStuff = function(response) {
   message = JSON.parse(response.data);
-  $.ajax({
-  url: "/messages/display_message",
-  method: "POST",
-  data: { "message" : message }
-   });
+  var formattedSpeech = '<li class="mar-btm"><div class="media-body pad-hor"><div class="speech">'+
+                        '<p class="media-heading">' + message.user_name + '</p><p>'+ message.content +
+                        '<p class="speech-time"><i class="fa fa-clock-o fa-fw"></i>' + message.created_at + 
+                        '</p></div></div></li>'
+  $('#chat').append(formattedSpeech);
 };
 
 $(document).ready(ready);
